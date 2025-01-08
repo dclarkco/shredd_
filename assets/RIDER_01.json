@@ -1,0 +1,135 @@
+{ "frames": {
+   "RIDER_01 #Base.aseprite": {
+    "frame": { "x": 0, "y": 0, "w": 48, "h": 48 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 48, "h": 48 },
+    "sourceSize": { "w": 48, "h": 48 },
+    "duration": 100
+   },
+   "RIDER_01 #idle (slide) 0.aseprite": {
+    "frame": { "x": 0, "y": 48, "w": 48, "h": 48 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 48, "h": 48 },
+    "sourceSize": { "w": 48, "h": 48 },
+    "duration": 100
+   },
+   "RIDER_01 #idle (slide) 1.aseprite": {
+    "frame": { "x": 48, "y": 48, "w": 48, "h": 48 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 48, "h": 48 },
+    "sourceSize": { "w": 48, "h": 48 },
+    "duration": 100
+   },
+   "RIDER_01 #idle (slide) 2.aseprite": {
+    "frame": { "x": 96, "y": 48, "w": 48, "h": 48 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 48, "h": 48 },
+    "sourceSize": { "w": 48, "h": 48 },
+    "duration": 100
+   },
+   "RIDER_01 #idle (slide) 3.aseprite": {
+    "frame": { "x": 144, "y": 48, "w": 48, "h": 48 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 48, "h": 48 },
+    "sourceSize": { "w": 48, "h": 48 },
+    "duration": 100
+   },
+   "RIDER_01 #rear_butter.aseprite": {
+    "frame": { "x": 0, "y": 96, "w": 48, "h": 48 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 48, "h": 48 },
+    "sourceSize": { "w": 48, "h": 48 },
+    "duration": 100
+   },
+   "RIDER_01 #front_butter.aseprite": {
+    "frame": { "x": 0, "y": 144, "w": 48, "h": 48 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 48, "h": 48 },
+    "sourceSize": { "w": 48, "h": 48 },
+    "duration": 100
+   },
+   "RIDER_01 #airtime.aseprite": {
+    "frame": { "x": 0, "y": 192, "w": 48, "h": 48 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 48, "h": 48 },
+    "sourceSize": { "w": 48, "h": 48 },
+    "duration": 100
+   },
+   "RIDER_01 #F_grab.aseprite": {
+    "frame": { "x": 0, "y": 240, "w": 48, "h": 48 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 48, "h": 48 },
+    "sourceSize": { "w": 48, "h": 48 },
+    "duration": 100
+   },
+   "RIDER_01 #R_grab.aseprite": {
+    "frame": { "x": 0, "y": 288, "w": 48, "h": 48 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 48, "h": 48 },
+    "sourceSize": { "w": 48, "h": 48 },
+    "duration": 100
+   },
+   "RIDER_01 #landing 0.aseprite": {
+    "frame": { "x": 0, "y": 336, "w": 48, "h": 48 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 48, "h": 48 },
+    "sourceSize": { "w": 48, "h": 48 },
+    "duration": 100
+   },
+   "RIDER_01 #landing 1.aseprite": {
+    "frame": { "x": 48, "y": 336, "w": 48, "h": 48 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 48, "h": 48 },
+    "sourceSize": { "w": 48, "h": 48 },
+    "duration": 100
+   },
+   "RIDER_01 #landing 2.aseprite": {
+    "frame": { "x": 96, "y": 336, "w": 48, "h": 48 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 48, "h": 48 },
+    "sourceSize": { "w": 48, "h": 48 },
+    "duration": 100
+   }
+ },
+ "meta": {
+  "app": "https://www.aseprite.org/",
+  "version": "1.3.1-dev",
+  "image": "RIDER_01.png",
+  "format": "RGBA8888",
+  "size": { "w": 192, "h": 384 },
+  "scale": "1",
+  "frameTags": [
+   { "name": "Base", "from": 0, "to": 0, "direction": "forward", "color": "#000000ff" },
+   { "name": "idle (slide)", "from": 1, "to": 4, "direction": "forward", "color": "#000000ff" },
+   { "name": "rear_butter", "from": 5, "to": 5, "direction": "forward", "color": "#000000ff" },
+   { "name": "front_butter", "from": 6, "to": 6, "direction": "forward", "color": "#000000ff" },
+   { "name": "airtime", "from": 7, "to": 7, "direction": "forward", "color": "#000000ff" },
+   { "name": "F_grab", "from": 8, "to": 8, "direction": "forward", "color": "#000000ff" },
+   { "name": "R_grab", "from": 9, "to": 9, "direction": "forward", "color": "#000000ff" },
+   { "name": "landing", "from": 10, "to": 12, "direction": "forward", "color": "#000000ff" }
+  ],
+  "layers": [
+   { "name": "Moveset", "opacity": 255, "blendMode": "normal" },
+   { "name": "Legs", "opacity": 255, "blendMode": "normal" },
+   { "name": "Torso", "opacity": 255, "blendMode": "normal" },
+   { "name": "Arms", "opacity": 255, "blendMode": "normal" },
+   { "name": "Noggin", "opacity": 255, "blendMode": "normal" },
+   { "name": "goggles", "opacity": 255, "blendMode": "normal" }
+  ],
+  "slices": [
+  ]
+ }
+}

@@ -1,0 +1,47 @@
+[gd_scene load_steps=7 format=3 uid="uid://isjv6vsw6n3u"]
+
+[ext_resource type="PackedScene" uid="uid://clejav2s6b8wj" path="res://scenes/shredder_01.tscn" id="1_afmkj"]
+[ext_resource type="Texture2D" uid="uid://b53kcyfwj7qkg" path="res://assets/Park_01_bg.png" id="1_rplgh"]
+[ext_resource type="Texture2D" uid="uid://badb8sx0kxi6p" path="res://assets/Pipe_surface.png" id="2_o4cvh"]
+[ext_resource type="PhysicsMaterial" uid="uid://dd2ahl5v6g2jd" path="res://assets/snow.tres" id="3_gvqx1"]
+[ext_resource type="Texture2D" uid="uid://bdm87gbpt1bij" path="res://assets/Pipe_collider.png" id="3_nws3q"]
+[ext_resource type="Script" path="res://scripts/shredder_01.gd" id="5_ify8v"]
+
+[node name="Main" type="Node2D"]
+
+[node name="Park01_bg" type="Sprite2D" parent="."]
+texture = ExtResource("1_rplgh")
+
+[node name="TileMapLayer" type="TileMapLayer" parent="Park01_bg"]
+
+[node name="Pipe_surface" type="Sprite2D" parent="."]
+texture = ExtResource("2_o4cvh")
+
+[node name="Pipe_collider" type="StaticBody2D" parent="."]
+physics_material_override = ExtResource("3_gvqx1")
+
+[node name="CollisionShape2D" type="CollisionPolygon2D" parent="Pipe_collider"]
+position = Vector2(-1, 30)
+scale = Vector2(0.836389, -0.861766)
+build_mode = 1
+polygon = PackedVector2Array(-155.43, 22.0478, -155.43, -2.32082, -154.234, -23.2082, -150.648, -31.331, -144.669, -38.2935, -135.105, -44.0955, -119.562, -47.5767, -98.0405, -51.058, 1.19562, -54.5392, 127.931, -52.2184, 148.256, -45.2559, 157.821, -35.9727, 162.604, -27.8498, 164.995, -15.0853, 164.995, -1.16041, 164.995, 32.4914, 192.494, 32.4914, 192.494, 257.611, -190.103, 257.611, -190.103, 22.0478)
+
+[node name="Sprite2D" type="Sprite2D" parent="Pipe_collider"]
+texture = ExtResource("3_nws3q")
+
+[node name="shredder_01" parent="." instance=ExtResource("1_afmkj")]
+position = Vector2(-112, -9)
+mass = 50.0
+center_of_mass_mode = 1
+center_of_mass = Vector2(0, 15)
+freeze_mode = 1
+linear_damp = 0.1
+angular_damp = 0.1
+script = ExtResource("5_ify8v")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(0, -4.76837e-07)
+scale = Vector2(0.588895, 0.152272)
+zoom = Vector2(4, 4)
+process_callback = 0
+position_smoothing_enabled = true

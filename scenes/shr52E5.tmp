@@ -1,0 +1,134 @@
+[gd_scene load_steps=12 format=3 uid="uid://clejav2s6b8wj"]
+
+[ext_resource type="Texture2D" uid="uid://8vse7ava72vh" path="res://assets/RIDER_01.png" id="1_6kq0k"]
+[ext_resource type="PhysicsMaterial" uid="uid://dd2ahl5v6g2jd" path="res://assets/snow.tres" id="1_tj0ce"]
+
+[sub_resource type="GDScript" id="GDScript_j7fdu"]
+script/source = "
+extends RigidBody2D
+
+
+# Constants
+const MOVE_FORCE = 2000.0  # Increased force to test movement
+const ROTATION_DAMPING = 0.1  # Lower damping for rotation
+const GRAVITY_SCALE = 2.0  # Increased gravity scale
+const WALL_SLIDE_FORCE = 50.0  # Force to prevent sticking to walls
+
+# Variables
+var slope_normal = Vector2.UP  # Default slope normal
+
+func _ready():
+	# Adjust gravity if needed
+	gravity_scale = GRAVITY_SCALE
+
+func _integrate_forces(state: PhysicsDirectBodyState2D):
+	# Get the current velocity
+	var current_velocity = state.get_linear_velocity()
+
+	# Detect collisions to calculate slope normal
+	if state.get_contact_count() > 0:
+		# Get the first contact's normal
+		slope_normal = state.get_contact_local_normal(0)
+		# If hitting a vertical wall, apply a sliding force
+		var normal = state.get_contact_local_normal(0)
+		if normal.angle() > 0.5:  # Check for vertical wall
+			var slide_force = normal.rotated(PI) * WALL_SLIDE_FORCE
+			state.apply_central_force(slide_force)
+	else:
+		# Default to gravity's direction if no collision
+		slope_normal = Vector2.UP
+
+	# Handle player input
+	var input_direction = 0
+	if Input.is_action_pressed(\"right\"):
+		input_direction = 1
+	elif Input.is_action_pressed(\"left\"):
+		input_direction = -1
+
+	if input_direction != 0:
+		# Calculate force to apply perpendicular to the slope
+		var perpendicular_force = slope_normal.rotated(input_direction * PI / 2) * MOVE_FORCE
+		state.apply_central_force(perpendicular_force)
+
+	# Rotate the snowboarder based on velocity direction
+	if current_velocity.length() > 1:  # Avoid jittering at low speeds
+		var desired_rotation = current_velocity.angle()
+		var current_rotation = rotation
+		rotation = lerp_angle(current_rotation, desired_rotation, ROTATION_DAMPING)
+
+	# Debugging visuals (optional)
+	# draw_vector(perpendicular_force, position, Color.red)
+	# draw_vector(current_velocity, position, Color.green)
+"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5dtvc"]
+atlas = ExtResource("1_6kq0k")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_t17ea"]
+atlas = ExtResource("1_6kq0k")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4kkyg"]
+atlas = ExtResource("1_6kq0k")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vllep"]
+atlas = ExtResource("1_6kq0k")
+region = Rect2(192, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_i6b1c"]
+atlas = ExtResource("1_6kq0k")
+region = Rect2(256, 0, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_w7rtx"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5dtvc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_t17ea")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4kkyg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vllep")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_i6b1c")
+}],
+"loop": true,
+"name": &"idle (sliding)",
+"speed": 5.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_xf1hn"]
+radius = 7.0
+height = 24.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_47b80"]
+size = Vector2(9, 24.5)
+
+[node name="shredder_01" type="RigidBody2D"]
+physics_material_override = ExtResource("1_tj0ce")
+can_sleep = false
+linear_damp = 0.01
+script = SubResource("GDScript_j7fdu")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(5, 5)
+sprite_frames = SubResource("SpriteFrames_w7rtx")
+animation = &"idle (sliding)"
+autoplay = "idle (sliding)"
+frame_progress = 0.365694
+
+[node name="CollisionPolygon2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 6)
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_xf1hn")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -3.25)
+shape = SubResource("RectangleShape2D_47b80")

@@ -1,0 +1,70 @@
+[gd_scene load_steps=7 format=3 uid="uid://isjv6vsw6n3u"]
+
+[ext_resource type="PackedScene" uid="uid://clejav2s6b8wj" path="res://scenes/shredder_01.tscn" id="1_afmkj"]
+[ext_resource type="Texture2D" uid="uid://b53kcyfwj7qkg" path="res://assets/Park_01_bg.png" id="1_rplgh"]
+[ext_resource type="Texture2D" uid="uid://badb8sx0kxi6p" path="res://assets/Pipe_surface.png" id="2_o4cvh"]
+[ext_resource type="PhysicsMaterial" uid="uid://dd2ahl5v6g2jd" path="res://assets/snow.tres" id="3_gvqx1"]
+[ext_resource type="Texture2D" uid="uid://bdm87gbpt1bij" path="res://assets/Pipe_collider.png" id="3_nws3q"]
+
+[sub_resource type="SeparationRayShape2D" id="SeparationRayShape2D_6elq3"]
+custom_solver_bias = 0.131
+length = 58.28
+slide_on_slope = true
+
+[node name="Main" type="Node2D"]
+
+[node name="Park01_bg" type="Sprite2D" parent="."]
+texture = ExtResource("1_rplgh")
+
+[node name="TileMapLayer" type="TileMapLayer" parent="Park01_bg"]
+
+[node name="Pipe_surface" type="Sprite2D" parent="."]
+position = Vector2(0, 11)
+texture = ExtResource("2_o4cvh")
+
+[node name="Pipe_collider" type="StaticBody2D" parent="." groups=["ground"]]
+position = Vector2(0, 11)
+physics_material_override = ExtResource("3_gvqx1")
+
+[node name="CollisionShape2D" type="CollisionPolygon2D" parent="Pipe_collider" groups=["ground"]]
+position = Vector2(-1, 33.9491)
+scale = Vector2(0.836389, -0.87302)
+build_mode = 1
+polygon = PackedVector2Array(-190.103, 25.529, -151.843, 25.529, -151.53, 7.22128, -150.648, -3.48122, -148.256, -12.7645, -144.67, -22.0477, -141.083, -30.1706, -133.909, -37.133, -121.953, -45.2559, -107.605, -49.3126, -93.258, -52.2184, -77.715, -53.3788, 84.8887, -53.3788, 113.584, -52.2184, 132.713, -47.5767, 147.061, -38.2935, 156.626, -23.2082, 161.408, -8.12286, 163.799, 11.6041, 163.799, 29.0102, 192.494, 28.578, 192.494, 150.853, 192.494, 257.611, -190.103, 257.611)
+one_way_collision_margin = 31.0
+
+[node name="Sprite2D" type="Sprite2D" parent="Pipe_collider"]
+texture = ExtResource("3_nws3q")
+
+[node name="shredder_01" parent="." instance=ExtResource("1_afmkj")]
+position = Vector2(-117, -12)
+mass = 75.0
+gravity_scale = 1.5
+center_of_mass_mode = 1
+center_of_mass = Vector2(0, 8)
+max_contacts_reported = 4
+linear_damp = 0.1
+angular_damp = 0.4
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(0, -4.76837e-07)
+scale = Vector2(0.588895, 0.152272)
+zoom = Vector2(4, 4)
+process_callback = 0
+position_smoothing_enabled = true
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 3
+collision_mask = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(-90, -42)
+rotation = 1.5708
+scale = Vector2(20, 1)
+shape = SubResource("SeparationRayShape2D_6elq3")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(-68, 49)
+rotation = -1.65806
+scale = Vector2(20, 1)
+shape = SubResource("SeparationRayShape2D_6elq3")
