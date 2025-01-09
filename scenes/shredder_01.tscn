@@ -1,6 +1,7 @@
-[gd_scene load_steps=30 format=3 uid="uid://clejav2s6b8wj"]
+[gd_scene load_steps=32 format=3 uid="uid://clejav2s6b8wj"]
 
 [ext_resource type="Texture2D" uid="uid://8vse7ava72vh" path="res://assets/RIDER_01.png" id="1_6kq0k"]
+[ext_resource type="PhysicsMaterial" uid="uid://dd2ahl5v6g2jd" path="res://assets/snow.tres" id="1_yau2y"]
 [ext_resource type="Script" path="res://scripts/shredder_01.gd" id="2_ern46"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_w15rw"]
@@ -223,34 +224,41 @@ animations = [{
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_xf1hn"]
 radius = 6.0
-height = 34.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_nskje"]
+radius = 5.0
 
 [node name="shredder_01" type="RigidBody2D" groups=["player"]]
 collision_layer = 3
 collision_mask = 3
-mass = 65.0
+mass = 67.0
+physics_material_override = ExtResource("1_yau2y")
 can_sleep = false
 contact_monitor = true
-max_contacts_reported = 3
-linear_damp = 0.5
-angular_damp = 1.0
+max_contacts_reported = 2
+linear_damp_mode = 1
+linear_damp = 0.1
+angular_damp = 2.5
 script = ExtResource("2_ern46")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_w7rtx")
-animation = &"landing"
+animation = &"rider_all"
 autoplay = "idle (sliding)"
-frame_progress = 0.763558
+frame_progress = 0.884724
 
 [node name="CollisionPolygon2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, 9)
+position = Vector2(0, 10)
 rotation = 1.5708
 shape = SubResource("CapsuleShape2D_xf1hn")
 
 [node name="HeadArea2D" type="Area2D" parent="."]
+physics_interpolation_mode = 1
+collision_layer = 3
+collision_mask = 3
 
-[node name="CollisionPolygon2D" type="CollisionShape2D" parent="HeadArea2D"]
-position = Vector2(0, -2)
-shape = SubResource("CapsuleShape2D_xf1hn")
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HeadArea2D"]
+position = Vector2(0, -11)
+shape = SubResource("CircleShape2D_nskje")
 
 [connection signal="body_entered" from="HeadArea2D" to="." method="_on_head_hit_ground"]

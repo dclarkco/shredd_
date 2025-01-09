@@ -1,27 +1,38 @@
-# Shreda shredder_01 | Paper shredder
+# shredder_01 | Paper shredder
 
 extends RigidBody2D
 
 # Constants
-const MOVE_FORCE = 12000.0  # Increased force to test movement
+const MOVE_FORCE = 6700.0  # Increased force to test movement
 const ROTATION_DAMPING = 0.1  # Lower damping for rotation
 const GRAVITY_SCALE = 100.0  # Increased gravity scale
-const RAYCAST_LENGTH = 15.0  # Length for raycasting to detect slopes
+const RAYCAST_LENGTH = 10.0  # Length for raycasting to detect slopes
 const GROUND_DETECTION_OFFSET = 10.0  # Offset from the character for raycast
 
 # Variables
 var is_in_air = false  # To track if snowboarder is in the air
 var slope_normal = Vector2.UP  # Default slope normal
+
+
 @onready var animated_sprite = $AnimatedSprite2D  # Reference to AnimatedSprite2D
+var current_animation = ""  # Tracks the currently playing animation
+var new_animation = ""     # Track animation change per physics frame
 
 func _integrate_forces(state: PhysicsDirectBodyState2D):
+	
 	# Get the current velocity
 	var current_velocity = state.get_linear_velocity()
 
 	# Check for ground contacts
 	var contacts = state.get_contact_count()
-	if (contacts >= 1):
+	if (contacts == 1):
 		is_in_air = false
+		new_animation = "r_butter"
+	elif (contacts >=2):
+		is_in_air = false
+		new_animation = "idle (sliding)"
+		if Input.is_action_pressed("crouch"):
+			new_animation = "landing"
 	elif (contacts == 0):
 		is_in_air = true
 
@@ -51,26 +62,41 @@ func _integrate_forces(state: PhysicsDirectBodyState2D):
 		if collision:
 			var detected_normal = collision["normal"]
 			# Interpolate slope normal based on raycast detection to smooth out bumps
-			slope_normal = slope_normal.lerp(detected_normal, 0.1)  # Adjust 0.1 for smoothing
+			slope_normal = slope_normal.lerp(detected_normal, 1.0)  # Adjust 0.1 for smoothing
 
 		# Apply movement force (on the ground)
 		var forward_direction = Vector2.RIGHT.rotated(rotation)
 		var movement_force = forward_direction * input_direction * MOVE_FORCE
 		state.apply_central_force(movement_force)
+		
+		if Input.is_action_just_pressed("jump"):
+			new_animation = "crouch"
+			
 
 	elif is_in_air:
 		if input_direction != 0:
 			# Apply torque for rotation in the air
-			var torque = input_direction * (MOVE_FORCE / 12)
+			var torque = input_direction * (MOVE_FORCE / 6)
 			apply_torque_impulse(torque)
-
+		if Input.is_action_pressed("f_grab"):
+			new_animation = "f_grab"
+		elif Input.is_action_pressed("r_grab"):
+			new_animation = "r_grab"
+		else:
+			new_animation = "airtime"
+				
 	# Debug: Visualize ground contact detection and ground state
-	print("Contacts: " + str(contacts) + ", Airtime?__: " + str(is_in_air))
+	print("Contacts: " + str(contacts) + ", Airtime?__: " + str(is_in_air) + "Animation?__:" +str(current_animation))
 
 	# Rotate the snowboarder based on velocity
 	if current_velocity.length() > 1:
 		var desired_rotation = current_velocity.angle()
 		rotation = lerp_angle(rotation, desired_rotation, ROTATION_DAMPING)
+		
+	if new_animation != current_animation:
+		current_animation = new_animation
+	
+	$AnimatedSprite2D.play(current_animation)  # Replace with $AnimationPlayer.play(name) if using AnimationPlayer
 		
 func _on_head_hit_ground(body):
 	if body.is_in_group("ground"):

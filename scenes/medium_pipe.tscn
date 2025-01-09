@@ -1,0 +1,45 @@
+[gd_scene load_steps=6 format=3 uid="uid://cmce48b66kq5q"]
+
+[ext_resource type="PhysicsMaterial" uid="uid://dd2ahl5v6g2jd" path="res://assets/snow.tres" id="1_cqxw8"]
+[ext_resource type="Texture2D" uid="uid://bbt6qtgptmwuw" path="res://assets/medium_pipe.png" id="1_obql5"]
+[ext_resource type="PackedScene" uid="uid://clejav2s6b8wj" path="res://scenes/shredder_01.tscn" id="2_j5o7c"]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_hxdve"]
+normal = Vector2(1, 0)
+distance = 21.0
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_7kqct"]
+normal = Vector2(-1, 0)
+distance = 21.0
+
+[node name="medium_pipe" type="Node2D"]
+
+[node name="StaticBody2D" type="StaticBody2D" parent="." groups=["ground"]]
+position = Vector2(240, 240)
+physics_material_override = ExtResource("1_cqxw8")
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(-259, -112)
+shape = SubResource("WorldBoundaryShape2D_hxdve")
+debug_color = Color(0.624365, 0.51839, 0.344901, 0.42)
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(262, -29)
+shape = SubResource("WorldBoundaryShape2D_7kqct")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="StaticBody2D" groups=["ground"]]
+polygon = PackedVector2Array(-239, 105, -194, 105, -194, 149, -193, 162, -190, 175, -185, 189, -178, 200, -168, 210, -157, 218, -146, 223, -124, 227, -90, 229, 111, 229, 144, 227, 163, 221, 177, 214, 187, 205, 196, 192, 201, 179, 204, 165, 205, 152, 206, 127, 206, 98, 240, 98, 270, 90, 270, 261, -271, 261, -271, 94)
+
+[node name="MediumPipe" type="Sprite2D" parent="StaticBody2D"]
+position = Vector2(3, 8)
+texture = ExtResource("1_obql5")
+
+[node name="shredder_01" parent="." instance=ExtResource("2_j5o7c")]
+position = Vector2(29, 321)
+linear_damp = 0.2
+angular_damp = 2.0
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(243, 338)
+scale = Vector2(1.08549, 1)
+zoom = Vector2(2.67, 2.67)
