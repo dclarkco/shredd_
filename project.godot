@@ -70,8 +70,11 @@ f_grab={
 [physics]
 
 2d/run_on_separate_thread=true
+common/physics_ticks_per_second=120
+common/physics_jitter_fix=0.0
 2d/physics_engine="GodotPhysics2D"
 2d/default_gravity=98.0
+common/physics_interpolation=true
 
 [rendering]
 

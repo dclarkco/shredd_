@@ -1,0 +1,7 @@
+Snowpunk 2D halfipie scene, sidescroller pixel art game scene, urban abandoned snowpark, graffiti, jet_set_radio scene, (side elevation view of snowy hill)
+
+characters, people, isometric, 3D
+
+1280x800
+dsxlunstablev7electricmind
+euler 100 * 8

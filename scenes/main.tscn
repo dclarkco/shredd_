@@ -34,14 +34,12 @@ texture = ExtResource("3_nws3q")
 [node name="shredder_01" parent="." instance=ExtResource("1_afmkj")]
 position = Vector2(-117, -12)
 mass = 75.0
-gravity_scale = 1.5
-center_of_mass_mode = 1
 center_of_mass = Vector2(0, 8)
 max_contacts_reported = 4
 angular_damp = 0.4
 
-[node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2(0, -4.76837e-07)
+[node name="Camera2D" type="Camera2D" parent="shredder_01"]
+position = Vector2(117, 12)
 scale = Vector2(0.588895, 0.152272)
 zoom = Vector2(4, 4)
 process_callback = 0

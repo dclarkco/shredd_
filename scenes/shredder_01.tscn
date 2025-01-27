@@ -1,7 +1,6 @@
-[gd_scene load_steps=32 format=3 uid="uid://clejav2s6b8wj"]
+[gd_scene load_steps=30 format=3 uid="uid://clejav2s6b8wj"]
 
 [ext_resource type="Texture2D" uid="uid://8vse7ava72vh" path="res://assets/RIDER_01.png" id="1_6kq0k"]
-[ext_resource type="PhysicsMaterial" uid="uid://dd2ahl5v6g2jd" path="res://assets/snow.tres" id="1_yau2y"]
 [ext_resource type="Script" path="res://scripts/shredder_01.gd" id="2_ern46"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_w15rw"]
@@ -31,10 +30,6 @@ region = Rect2(96, 48, 48, 48)
 [sub_resource type="AtlasTexture" id="AtlasTexture_oxenn"]
 atlas = ExtResource("1_6kq0k")
 region = Rect2(144, 48, 48, 48)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_k8vsx"]
-atlas = ExtResource("1_6kq0k")
-region = Rect2(0, 336, 48, 48)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_s8va4"]
 atlas = ExtResource("1_6kq0k")
@@ -149,9 +144,6 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_k8vsx")
-}, {
-"duration": 1.0,
 "texture": SubResource("AtlasTexture_s8va4")
 }, {
 "duration": 1.0,
@@ -232,7 +224,9 @@ radius = 5.0
 collision_layer = 3
 collision_mask = 3
 mass = 67.0
-physics_material_override = ExtResource("1_yau2y")
+gravity_scale = 1.5
+center_of_mass_mode = 1
+center_of_mass = Vector2(0, 4)
 can_sleep = false
 contact_monitor = true
 max_contacts_reported = 2
@@ -243,9 +237,9 @@ script = ExtResource("2_ern46")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_w7rtx")
-animation = &"rider_all"
+animation = &"idle (sliding)"
 autoplay = "idle (sliding)"
-frame_progress = 0.884724
+frame_progress = 0.765518
 
 [node name="CollisionPolygon2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 10)
